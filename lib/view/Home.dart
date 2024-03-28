@@ -405,7 +405,7 @@ class _HomeState extends State<Home> {
                                 child: ListView.separated(
                                   separatorBuilder: (context, index) {
                                     return SizedBox(
-                                      width: 20,
+                                      width: 10,
                                     );
                                   },
                                   physics: BouncingScrollPhysics(),
@@ -423,20 +423,22 @@ class _HomeState extends State<Home> {
                                     return Container(
                                       alignment: Alignment.center,
                                       height: 50,
-                                      width: 50,
+                                      width: 70,
                                       child: ListView(
                                         padding: EdgeInsets.zero,
                                         physics: NeverScrollableScrollPhysics(),
                                         children: [
                                           Container(
                                             height: 50,
-                                            width: 50,
+                                            width: 70,
                                             child: InkWell(
                                               customBorder: CircleBorder(),
                                               onTap: () async {
-                                                Get.to(() => ProductsByCategory(
-                                                      categoryId: category.id,
-                                                    ));
+                                                Get.to(
+                                                  () => ProductsByCategory(
+                                                    categoryId: category.id,
+                                                  ),
+                                                );
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
@@ -469,8 +471,9 @@ class _HomeState extends State<Home> {
                                             maxLines: 2,
                                             style: AppStyles.appFontMedium
                                                 .copyWith(
-                                              fontSize: 14,
+                                              fontSize: 12,
                                             ),
+                                            
                                           ),
                                         ],
                                       ),
@@ -1448,8 +1451,7 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(
                               left: 12.0, right: 12.0, top: 10.0),
                           child: Obx(() {
-                            if (_homeController.isHomePageLoading.value ||
-                                _homeController.homePageModel.value == null) {
+                            if (_homeController.isHomePageLoading.value) {
                               return Column(
                                 children: [
                                   SizedBox(
