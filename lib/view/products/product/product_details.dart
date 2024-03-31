@@ -11,6 +11,7 @@ import 'package:wavemall/model/Product/ProductVariantDetail.dart';
 import 'package:wavemall/model/Product/Review.dart';
 import 'package:wavemall/model/Product/SellerSkuModel.dart';
 import 'package:wavemall/network/config.dart';
+import 'package:wavemall/utils/format_price.dart';
 import 'package:wavemall/utils/styles.dart';
 import 'package:wavemall/view/authentication/LoginPage.dart';
 import 'package:wavemall/view/cart/CartMain.dart';
@@ -210,18 +211,18 @@ class _ProductDetailsState extends State<ProductDetails> {
     if (productModel.hasDeal != null) {
       if (productModel.hasDeal!.discountType == 0) {
         discountType =
-            '(-${productModel.hasDeal!.discount!.toStringAsFixed(2)}%)';
+            '(-${productModel.hasDeal!.discount!.toStringAsFixed(0)}%)';
       } else {
         discountType =
-            '(-${(productModel.hasDeal!.discount! * _settingsController.conversionRate.value).toStringAsFixed(2)}${_settingsController.appCurrency.value})';
+            '(-${(productModel.hasDeal!.discount! * _settingsController.conversionRate.value).toStringAsFixed(0)}${_settingsController.appCurrency.value})';
       }
     } else {
       if (productModel.discount! > 0) {
         if (productModel.discountType == '0') {
-          discountType = '(-${productModel.discount!.toStringAsFixed(2)}%)';
+          discountType = '(-${productModel.discount!.toStringAsFixed(0)}%)';
         } else {
           discountType =
-              '(-${(productModel.discount! * _settingsController.conversionRate.value).toStringAsFixed(2)}${_settingsController.appCurrency.value})';
+              '(-${(productModel.discount! * _settingsController.conversionRate.value).toStringAsFixed(0)}${_settingsController.appCurrency.value})';
         }
       } else {
         discountType = '';
@@ -273,6 +274,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 backgroundColor: Colors.white,
                 body: NestedScrollView(
                   //physics: NeverScrollableScrollPhysics(),
+
                   headerSliverBuilder:
                       (BuildContext context, bool innerBoxIsScrolled) {
                     return <Widget>[
@@ -499,7 +501,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                             backgroundColor: Colors.transparent,
                                             child: Icon(
                                               Icons.arrow_back,
-                                              color: AppStyles.pinkColor,
+                                              color: AppStyles.appThemeColor,
                                             ),
                                             onPressed: () {
                                               Get.back();
@@ -634,7 +636,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     height: 40,
                                     padding: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
-                                      color: AppStyles.appThemeColor,
+                                      color:
+                                          AppStyles.appThemeColor.withAlpha(30),
                                       shape: BoxShape.circle,
                                     ),
                                     child: InkWell(
@@ -647,7 +650,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       child: Icon(
                                         FontAwesomeIcons.shareNodes,
                                         size: 16,
-                                        color: AppStyles.goldenYellowColor,
+                                        color: AppStyles.pinkColor,
                                       ),
                                     ),
                                   ),
@@ -833,12 +836,49 @@ class _ProductDetailsState extends State<ProductDetails> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Obx(() {
-                                            return Text(
-                                              '${double.parse((controller.finalPrice.value * _settingsController.conversionRate.value).toStringAsFixed(2))}${_settingsController.appCurrency.value}',
-                                              style: AppStyles.appFontBold
-                                                  .copyWith(
-                                                height: 1,
-                                                fontSize: 26,
+                                            return RichText(
+                                              text: TextSpan(
+                                                children: [
+                                                  // TextSpan(
+                                                  //   text:
+                                                  //       '${_settingsController.appCurrency.value} ',
+                                                  //   style: AppStyles.appFontBold
+                                                  //       .copyWith(
+                                                  //     height: 1,
+                                                  //     fontSize: 26,
+                                                  //   ),
+                                                  // ),
+                                                  TextSpan(
+                                                    text: formatPrice(
+                                                      double.parse((controller
+                                                                  .finalPrice
+                                                                  .value *
+                                                              _settingsController
+                                                                  .conversionRate
+                                                                  .value)
+                                                          .floor()
+                                                          .toString()),
+                                                      currencySymbol:
+                                                          '${_settingsController.appCurrency.value} ',
+                                                    ),
+                                                    style: AppStyles.appFontBold
+                                                        .copyWith(
+                                                      height: 1,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+
+                                                  // TextSpan(
+                                                  //   text:
+                                                  //       '.${((controller.finalPrice.value * _settingsController.conversionRate.value) * 100 % 100).toStringAsFixed(0)}',
+                                                  //   style: AppStyles.appFontBold
+                                                  //       .copyWith(
+                                                  //     height: 1,
+                                                  //     fontSize:
+                                                  //         16, // Smaller font size for the decimal part
+                                                  //   ),
+                                                  // ),
+                                                ],
                                               ),
                                             );
                                           }),
@@ -898,7 +938,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                           horizontal: 8, vertical: 7),
                                       decoration: BoxDecoration(
                                           color: AppStyles.appThemeColor
-                                              .withAlpha(60),
+                                              .withAlpha(40),
                                           shape: BoxShape.rectangle,
                                           borderRadius:
                                               BorderRadius.circular(7)),
@@ -1573,22 +1613,30 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                               categoryIndex -
                                                                   1]);
                                                     },
-                                                    child: Chip(
-                                                      backgroundColor: AppStyles
-                                                          .appThemeColor,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                      ),
-                                                      label: Text(
+                                                    child: Container(
+                                                      padding:
+                                                          EdgeInsets.all(8.0),
+                                                      decoration: BoxDecoration(
+                                                          color: AppStyles
+                                                              .appThemeColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(4)
+                                                          // borderRadius:
+                                                          //     RoundedRectangleBorder(
+                                                          //   borderRadius:
+                                                          //       BorderRadius
+                                                          //           .circular(
+                                                          //     5,
+                                                          //   ),
+                                                          // ),
+                                                          ),
+                                                      child: Text(
                                                         '${_productDetailsModel.data!.product!.categories![categoryIndex - 1].name}',
                                                         style: AppStyles
                                                             .appFontBook
                                                             .copyWith(
-                                                          color: AppStyles
-                                                              .goldenYellowColor,
+                                                          color: Colors.white,
                                                         ),
                                                       ),
                                                     ),
@@ -1666,17 +1714,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                           .appThemeColor,
                                                       shape:
                                                           RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                      ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5)),
                                                       label: Text(
                                                         '${_productDetailsModel.data!.product!.tags![tagIndex - 1].name}',
                                                         style: AppStyles
                                                             .appFontBook
                                                             .copyWith(
-                                                          color: AppStyles
-                                                              .goldenYellowColor,
+                                                          color: Colors.white,
                                                         ),
                                                       ),
                                                     ),
@@ -2237,7 +2284,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             width: 60,
                             height: 46,
                             decoration: BoxDecoration(
-                              gradient: AppStyles.gradient,
+                              color: Colors.white,
                               shape: BoxShape.rectangle,
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -2265,7 +2312,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   'assets/images/cart_icon.png',
                                   width: 30,
                                   height: 30,
-                                  color: Colors.white,
+                                  color: AppStyles.appThemeColor,
                                 ),
                               ),
                             ),
@@ -2308,7 +2355,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     width: Get.width,
                                     height: 46,
                                     decoration: BoxDecoration(
-                                      color: Color(0xff5c7185),
+                                      color: AppStyles.goldenYellowColor,
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(5),
                                       ),

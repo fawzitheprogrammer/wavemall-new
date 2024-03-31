@@ -1,13 +1,17 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:dio/dio.dart' as DIO;
+import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wavemall/AppConfig/app_config.dart';
 import 'package:wavemall/controller/login_controller.dart';
 import 'package:wavemall/controller/settings_controller.dart';
 import 'package:wavemall/network/config.dart';
 import 'package:wavemall/utils/dio_exception.dart';
 import 'package:wavemall/utils/styles.dart';
-import 'package:wavemall/view/Settings/AddressBook.dart';
 import 'package:wavemall/view/account/MyGiftCardsPage.dart';
 import 'package:wavemall/view/account/ProfilePage.dart';
 import 'package:wavemall/view/account/WishList.dart';
@@ -17,15 +21,10 @@ import 'package:wavemall/view/account/orders/OrderList/MyOrders.dart';
 import 'package:wavemall/view/account/orders/RefundAndDisputes/MyRefundsAndDisputes.dart';
 import 'package:wavemall/view/authentication/LoginPage.dart';
 import 'package:wavemall/view/products/giftCard/AllGiftCardsPage.dart';
+import 'package:wavemall/view/settings/AddressBook.dart';
 import 'package:wavemall/view/support/SupportTicketsPage.dart';
 import 'package:wavemall/widgets/CustomSliverAppBarWidget.dart';
 import 'package:wavemall/widgets/snackbars.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:dio/dio.dart' as DIO;
-import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'reviews/MyReviews.dart';
 
@@ -115,19 +114,15 @@ class _AccountPageState extends State<AccountPage> {
               slivers: [
                 CustomSliverAppBarWidget(false, false),
                 SliverFillRemaining(
-                  child: Stack(
-                    alignment: Alignment.topCenter,
+                  child: Wrap(
                     clipBehavior: Clip.none,
                     children: [
-                      ClipPath(
-                        clipper: TsClip3(),
-                        child: Image.asset(
-                          'assets/images/account_graphics.png',
-                          width: MediaQuery.of(context).size.width,
-                          fit: BoxFit.cover,
-                          height: MediaQuery.of(context).size.height * 0.22,
-                        ),
-                      ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width,
+                      //   //fit: BoxFit.cover,
+                      //   color: AppStyles.goldenYellowColor.withAlpha(120),
+                      //   height: MediaQuery.of(context).size.height * 0.22,
+                      // ),
                       Container(
                         height: MediaQuery.of(context).size.height,
                         child: Column(
@@ -168,11 +163,11 @@ class _AccountPageState extends State<AccountPage> {
                                           height: 40,
                                           width: 40,
                                           decoration: BoxDecoration(
-                                              color: Colors.white,
+                                              color: AppStyles.appThemeColor,
                                               shape: BoxShape.circle),
                                           child: Icon(
                                             Icons.add,
-                                            color: AppStyles.pinkColor,
+                                            color: Colors.white,
                                             size: 20,
                                           ),
                                         ),
@@ -271,44 +266,46 @@ class _AccountPageState extends State<AccountPage> {
                                           style: AppStyles.appFontMedium
                                               .copyWith(
                                                   fontSize: 18,
-                                                  color: Colors.white),
+                                                  color:
+                                                      AppStyles.appThemeColor),
                                         ),
                                         Text(
                                           '${loginController.profileData.value.email ?? ""}',
                                           textAlign: TextAlign.left,
                                           style: AppStyles.appFontBook.copyWith(
                                               fontSize: 14,
-                                              color: Colors.white),
+                                              color: AppStyles.appThemeColor),
                                         ),
-                                        InkWell(
-                                          onTap: () async {
-                                            await loginController
-                                                .accountController
-                                                .getAccountDetails();
-                                          },
-                                          child: Container(
-                                            height: 25,
-                                            // color: Colors.blue,
-                                            alignment: Alignment.center,
-                                            child: loginController
-                                                        .accountController
-                                                        .customerData
-                                                        .value
-                                                        .walletRunningBalance !=
-                                                    null
-                                                ? Text(
-                                                    'Wallet'.tr +
-                                                        ': ${(loginController.accountController.customerData.value.walletRunningBalance! * currencyController.conversionRate.value).toStringAsFixed(2)}${currencyController.appCurrency.value}',
-                                                    textAlign: TextAlign.left,
-                                                    style: AppStyles.appFontBook
-                                                        .copyWith(
-                                                      fontSize: 14,
-                                                      color: Colors.white,
-                                                    ),
-                                                  )
-                                                : Container(),
-                                          ),
-                                        ),
+                                        // InkWell(
+                                        //   onTap: () async {
+                                        //     await loginController
+                                        //         .accountController
+                                        //         .getAccountDetails();
+                                        //   },
+                                        //   child: Container(
+                                        //     height: 25,
+                                        //     // color: Colors.blue,
+                                        //     alignment: Alignment.center,
+                                        //     child: loginController
+                                        //                 .accountController
+                                        //                 .customerData
+                                        //                 .value
+                                        //                 .walletRunningBalance !=
+                                        //             null
+                                        //         ? Text(
+                                        //             'Wallet'.tr +
+                                        //                 ': ${(loginController.accountController.customerData.value.walletRunningBalance! * currencyController.conversionRate.value).toStringAsFixed(2)}${currencyController.appCurrency.value}',
+                                        //             textAlign: TextAlign.left,
+                                        //             style: AppStyles.appFontBook
+                                        //                 .copyWith(
+                                        //               fontSize: 14,
+                                        //               color: AppStyles
+                                        //                   .appThemeColor,
+                                        //             ),
+                                        //           )
+                                        //         : Container(),
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -335,7 +332,7 @@ class _AccountPageState extends State<AccountPage> {
                                         height: 30,
                                       ),
                                       AccountTiles(
-                                        title: "Edit Profile",
+                                        title: "Edit Profile".tr,
                                         image: 'assets/images/edit.png',
                                         onTap: () {
                                           if (!loginController.loggedIn.value) {
@@ -347,7 +344,7 @@ class _AccountPageState extends State<AccountPage> {
                                         },
                                       ),
                                       AccountTiles(
-                                        title: "Shipping Address",
+                                        title: "Shipping Address".tr,
                                         image:
                                             'assets/images/shipping_address.png',
                                         onTap: () {
@@ -377,7 +374,7 @@ class _AccountPageState extends State<AccountPage> {
                                             },
                                           ),
                                           AccountTiles(
-                                            title: "Coupons",
+                                            title: "Coupons".tr,
                                             image:
                                                 'assets/images/refund_and_disputes.png',
                                             onTap: () {
@@ -391,7 +388,7 @@ class _AccountPageState extends State<AccountPage> {
                                             },
                                           ),
                                           CustomExpansionTile(
-                                            title: "Gift Cards",
+                                            title: "Gift Cards".tr,
                                             image:
                                                 'assets/images/my_review.png',
                                             children: [
@@ -411,7 +408,7 @@ class _AccountPageState extends State<AccountPage> {
                                                 },
                                               ),
                                               AccountTiles(
-                                                title: "Purchase Gift Cards",
+                                                title: "Purchase Gift Cards".tr,
                                                 image:
                                                     'assets/images/my_review.png',
                                                 onTap: () {
@@ -430,12 +427,12 @@ class _AccountPageState extends State<AccountPage> {
                                         ],
                                       ),
                                       CustomExpansionTile(
-                                        title: "Order History",
+                                        title: "Order History".tr,
                                         image:
                                             'assets/images/order_history.png',
                                         children: [
                                           AccountTiles(
-                                            title: "All Order",
+                                            title: "All Order".tr,
                                             image:
                                                 'assets/images/all_order.png',
                                             onTap: () {
@@ -449,7 +446,7 @@ class _AccountPageState extends State<AccountPage> {
                                             },
                                           ),
                                           AccountTiles(
-                                            title: "My Cancellations",
+                                            title: "My Cancellations".tr,
                                             image:
                                                 'assets/images/my_cancellations.png',
                                             onTap: () {
@@ -463,7 +460,7 @@ class _AccountPageState extends State<AccountPage> {
                                             },
                                           ),
                                           AccountTiles(
-                                            title: "Refunds and Disputes",
+                                            title: "Refunds and Disputes".tr,
                                             image:
                                                 'assets/images/refund_and_disputes.png',
                                             onTap: () {
@@ -478,7 +475,7 @@ class _AccountPageState extends State<AccountPage> {
                                             },
                                           ),
                                           AccountTiles(
-                                            title: "My Review",
+                                            title: "My Review".tr,
                                             image:
                                                 'assets/images/my_review.png',
                                             onTap: () {
@@ -496,7 +493,7 @@ class _AccountPageState extends State<AccountPage> {
                                         ],
                                       ),
                                       AccountTiles(
-                                        title: "Need Help?",
+                                        title: "Need Help?".tr,
                                         image: 'assets/images/need_help.png',
                                         onTap: () {
                                           if (!loginController.loggedIn.value) {
@@ -531,7 +528,7 @@ class _AccountPageState extends State<AccountPage> {
                                                     .removeToken();
                                               },
                                               title: Text(
-                                                "Logout",
+                                                "Logout".tr,
                                                 style: AppStyles.appFontBold
                                                     .copyWith(fontSize: 14),
                                               ),
@@ -650,7 +647,7 @@ class _AccountPageState extends State<AccountPage> {
                                         height: 30,
                                       ),
                                       AccountTiles(
-                                        title: "Edit Profile",
+                                        title: "Edit Profile".tr,
                                         image: 'assets/images/edit.png',
                                         onTap: () {
                                           if (!loginController.loggedIn.value) {
@@ -660,7 +657,7 @@ class _AccountPageState extends State<AccountPage> {
                                         },
                                       ),
                                       AccountTiles(
-                                        title: "Shipping Address",
+                                        title: "Shipping Address".tr,
                                         image:
                                             'assets/images/shipping_address.png',
                                         onTap: () {
@@ -671,7 +668,7 @@ class _AccountPageState extends State<AccountPage> {
                                         },
                                       ),
                                       AccountTiles(
-                                        title: "Wishlist",
+                                        title: "Wishlist".tr,
                                         image: 'assets/images/wishlist.png',
                                         onTap: () {
                                           if (!loginController.loggedIn.value) {
@@ -681,7 +678,7 @@ class _AccountPageState extends State<AccountPage> {
                                         },
                                       ),
                                       AccountTiles(
-                                        title: "Order History",
+                                        title: "Order History".tr,
                                         image:
                                             'assets/images/order_history.png',
                                         onTap: () {
@@ -703,7 +700,7 @@ class _AccountPageState extends State<AccountPage> {
                                       // ),
 
                                       AccountTiles(
-                                        title: "Gift Cards",
+                                        title: "Gift Cards".tr,
                                         image: 'assets/images/my_review.png',
                                         onTap: () {
                                           if (!loginController.loggedIn.value) {
@@ -713,7 +710,7 @@ class _AccountPageState extends State<AccountPage> {
                                         },
                                       ),
                                       AccountTiles(
-                                        title: "Coupons",
+                                        title: "Coupons".tr,
                                         image:
                                             'assets/images/refund_and_disputes.png',
                                         onTap: () {
@@ -835,7 +832,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
         decoration: BoxDecoration(
           border: Border.all(
             color: _customTileExpanded
-                ? AppStyles.pinkColorAlt
+                ? AppStyles.appThemeColor
                 : Colors.transparent,
           ),
         ),
@@ -845,7 +842,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
             width: 40,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 215, 215),
+              color: AppStyles.goldenYellowColor.withAlpha(20),
               shape: BoxShape.circle,
             ),
             child: Image.asset(

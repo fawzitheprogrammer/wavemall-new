@@ -3,6 +3,7 @@ import 'package:wavemall/AppConfig/app_config.dart';
 import 'package:wavemall/controller/settings_controller.dart';
 import 'package:wavemall/model/Product/ProductModel.dart';
 import 'package:wavemall/model/Product/ProductType.dart';
+import 'package:wavemall/utils/format_price.dart';
 import 'package:wavemall/utils/styles.dart';
 import 'package:wavemall/view/products/product/product_details.dart';
 import 'package:wavemall/widgets/StarCounterWidget.dart';
@@ -330,7 +331,7 @@ class _GridViewProductWidgetState extends State<GridViewProductWidget> {
                                               style: AppStyles.appFontBook
                                                   .copyWith(
                                                 fontSize: 12,
-                                                color: AppStyles.pinkColor,
+                                                color: AppStyles.appThemeColor,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
@@ -345,10 +346,10 @@ class _GridViewProductWidgetState extends State<GridViewProductWidget> {
                                       runAlignment: WrapAlignment.start,
                                       children: [
                                         Text(
-                                          '${currencyController.calculatePrice(widget.productModel!)}${currencyController.appCurrency.value}',
+                                          '${formatPrice(double.parse(currencyController.calculatePrice(widget.productModel!) ?? '0'), currencySymbol: currencyController.appCurrency.value)}',
                                           style: AppStyles.appFontBook.copyWith(
                                             fontSize: 12,
-                                            color: AppStyles.pinkColor,
+                                            color: AppStyles.goldenYellowColor,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),

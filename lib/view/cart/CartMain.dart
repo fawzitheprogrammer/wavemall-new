@@ -3,8 +3,10 @@ import 'package:wavemall/controller/cart_controller.dart';
 import 'package:wavemall/controller/settings_controller.dart';
 import 'package:wavemall/model/Cart/MyCartModel.dart';
 import 'package:wavemall/model/Product/ProductType.dart';
+import 'package:wavemall/utils/format_price.dart';
 import 'package:wavemall/utils/styles.dart';
 import 'package:wavemall/view/cart/checkout/checkout_page_1.dart';
+import 'package:wavemall/view/cart/checkout/checkout_page_2.dart';
 import 'package:wavemall/view/products/product/product_details.dart';
 import 'package:wavemall/view/seller/StoreHome.dart';
 import 'package:wavemall/widgets/CustomSliverAppBarWidget.dart';
@@ -111,8 +113,8 @@ class _CartMainState extends State<CartMain> {
                       Container(
                         child: Image.asset(
                           AppConfig.appLogo,
-                          width: 30,
-                          height: 30,
+                          width: 50,
+                          height: 50,
                         ),
                       ),
                       SizedBox(
@@ -561,14 +563,18 @@ class _CartMainState extends State<CartMain> {
                                                             runSpacing: 5,
                                                             children: [
                                                               Text(
-                                                                currencyController
-                                                                        .appCurrency
-                                                                        .value +
-                                                                    (cartItems[prodIndex].totalPrice! *
-                                                                            currencyController
-                                                                                .conversionRate.value)
-                                                                        .toStringAsFixed(
-                                                                            2),
+                                                                formatPrice(
+                                                                  (cartItems[prodIndex]
+                                                                              .totalPrice! *
+                                                                          currencyController
+                                                                              .conversionRate
+                                                                              .value)
+                                                                      .toDouble(),
+                                                                  currencySymbol:
+                                                                      currencyController
+                                                                          .appCurrency
+                                                                          .value,
+                                                                ),
                                                                 style: AppStyles
                                                                     .appFontBold
                                                                     .copyWith(
@@ -913,6 +919,10 @@ class _CartMainState extends State<CartMain> {
             margin: EdgeInsets.only(bottom: widget.hasMargin ? 100 : 0),
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Obx(() {
+              var total = double.parse(
+                      (totalPrice() + (currencyController.conversionRate.value))
+                          .toString())
+                  .toStringAsFixed(2);
               return cartController.deleteSelected.value
                   ? Column(
                       children: [
@@ -966,7 +976,7 @@ class _CartMainState extends State<CartMain> {
                             ),
                             Expanded(child: Container()),
                             Text(
-                              '${double.parse((totalPrice() + (cartController.cartListModel.value.shippingCharge * currencyController.conversionRate.value)).toString()).toStringAsFixed(2)}${currencyController.appCurrency.value}',
+                              '${formatPrice(double.parse(total) - 1, currencySymbol: currencyController.appCurrency.value)}',
                               style: AppStyles.appFontMedium.copyWith(
                                 fontSize: 16,
                                 color: AppStyles.pinkColor,

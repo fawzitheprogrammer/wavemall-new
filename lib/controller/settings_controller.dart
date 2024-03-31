@@ -8,10 +8,7 @@ import 'package:wavemall/model/GeneralSettingsModel.dart';
 import 'package:wavemall/model/Product/GiftCardData.dart';
 import 'package:wavemall/model/Product/ProductModel.dart';
 import 'package:wavemall/model/Product/ProductType.dart';
-import 'package:wavemall/view/MainNavigation.dart';
 import 'package:wavemall/widgets/snackbars.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
@@ -20,7 +17,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../view/SplashScreen.dart';
 import 'cart_controller.dart';
 import 'login_controller.dart';
 import 'my_wishlist_controller.dart';
@@ -244,7 +240,7 @@ class GeneralSettingsController extends GetxController {
 
       await _googleSignIn.signOut();
 
-      await FacebookAuth.instance.logOut();
+      //await FacebookAuth.instance.logOut();
 
       print("User logged Out");
       // cartController.getCartList();
@@ -409,19 +405,19 @@ class GeneralSettingsController extends GetxController {
         amountText = double.parse(
                     (productModel.maxSellingPrice! * conversionRate.value)
                         .toString())
-                .toStringAsFixed(2) +
+                .toStringAsFixed(0) +
             appCurrency.value;
       } else {
         amountText = double.parse(
                     (productModel.minSellPrice * conversionRate.value)
                         .toString())
-                .toStringAsFixed(2) +
-            appCurrency.value +
-            ' - ' +
-            double.parse((productModel.maxSellingPrice! * conversionRate.value)
-                    .toString())
-                .toStringAsFixed(2) +
+                .toStringAsFixed(0) +
             appCurrency.value;
+        // ' - ' +
+        // double.parse((productModel.maxSellingPrice! * conversionRate.value)
+        //         .toString())
+        //     .toStringAsFixed(0) +
+        // appCurrency.value;
       }
     } else {
       amountText = '';
@@ -434,7 +430,7 @@ class GeneralSettingsController extends GetxController {
       if (prod.product!.productType == 1) {
         priceText = singlePrice(sellingPrice(prod.skus!.first.sellingPrice,
                 prod.hasDeal!.discountType, prod.hasDeal!.discount))
-            .toStringAsFixed(2);
+            .toStringAsFixed(0);
       } else {
         if (sellingPrice(prod.minSellPrice, prod.hasDeal!.discountType,
                 prod.hasDeal!.discount) ==
@@ -442,11 +438,11 @@ class GeneralSettingsController extends GetxController {
                 prod.hasDeal!.discount))
           priceText = singlePrice(sellingPrice(prod.minSellPrice,
                   prod.hasDeal!.discountType, prod.hasDeal!.discount))
-              .toStringAsFixed(2);
+              .toStringAsFixed(0);
         else {
           priceText = singlePrice(sellingPrice(prod.minSellPrice,
                   prod.hasDeal!.discountType, prod.hasDeal!.discount))
-              .toStringAsFixed(2);
+              .toStringAsFixed(0);
         }
       }
     } else {
@@ -466,7 +462,7 @@ class GeneralSettingsController extends GetxController {
           if (prod.hasDiscount == 'yes') {
             priceText = singlePrice(sellingPrice(prod.skus!.first.sellingPrice,
                     prod.discountType, prod.discount))
-                .toStringAsFixed(2);
+                .toStringAsFixed(0);
           } else {
             priceText =
                 singlePrice(prod.skus!.first.sellingPrice!).toStringAsFixed(2);

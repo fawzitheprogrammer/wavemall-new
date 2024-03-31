@@ -67,7 +67,7 @@ class _SearchPageMainState extends State<SearchPageMain> {
         child: LoadingMoreCustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: Color(0xff6E0200),
+              backgroundColor: AppStyles.darkBlueColor,
               titleSpacing: 0,
               expandedHeight: MediaQuery.of(context).size.height * 0.08,
               automaticallyImplyLeading: false,

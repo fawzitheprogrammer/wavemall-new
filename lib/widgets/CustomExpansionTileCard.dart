@@ -228,9 +228,8 @@ class ExpansionTileCardState extends State<ExpansionTileCard>
     _elevation = _controller?.drive(
         Tween<double>(begin: widget.initialElevation, end: widget.elevation)
             .chain(_elevationTween));
-    _padding = _controller!.drive(_edgeInsetsTween!.chain(_paddingTween!));
-    _isExpanded = PageStorage.of(context).readState(context) as bool ??
-        widget.initiallyExpanded;
+    _padding = _controller!.drive(_edgeInsetsTween!.chain(_paddingTween));
+    _isExpanded = PageStorage.of(context).readState(context) as bool;
     if (_isExpanded) _controller!.value = 1.0;
   }
 

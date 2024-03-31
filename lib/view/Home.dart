@@ -3,6 +3,7 @@ import 'package:wavemall/controller/home_controller.dart';
 import 'package:wavemall/controller/settings_controller.dart';
 import 'package:wavemall/model/HomePage/HomePageModel.dart';
 import 'package:wavemall/model/Product/ProductModel.dart';
+import 'package:wavemall/utils/format_price.dart';
 import 'package:wavemall/utils/styles.dart';
 import 'package:wavemall/view/products/RecommendedProductLoadMore.dart';
 import 'package:wavemall/view/products/brand/AllBrandsPage.dart';
@@ -473,7 +474,6 @@ class _HomeState extends State<Home> {
                                                 .copyWith(
                                               fontSize: 12,
                                             ),
-                                            
                                           ),
                                         ],
                                       ),
@@ -1076,8 +1076,10 @@ class _HomeState extends State<Home> {
                                                                             WrapCrossAlignment.center,
                                                                         children: [
                                                                           Text(
-                                                                            _settingsController.calculatePrice(_homeController.homePageModel.value.newUserZone!.allProducts![index].product!)! +
-                                                                                _settingsController.appCurrency.value,
+                                                                            formatPrice(
+                                                                              double.parse(_settingsController.calculatePrice(_homeController.homePageModel.value.newUserZone!.allProducts![index].product!)!),
+                                                                              currencySymbol: _settingsController.appCurrency.value,
+                                                                            ),
                                                                             overflow:
                                                                                 TextOverflow.ellipsis,
                                                                             style:

@@ -2,6 +2,7 @@ import 'package:wavemall/AppConfig/app_config.dart';
 import 'package:wavemall/controller/settings_controller.dart';
 import 'package:wavemall/model/Product/ProductModel.dart';
 import 'package:wavemall/model/Product/ProductType.dart';
+import 'package:wavemall/utils/format_price.dart';
 import 'package:wavemall/utils/styles.dart';
 import 'package:wavemall/view/products/product/product_details.dart';
 import 'package:wavemall/widgets/StarCounterWidget.dart';
@@ -128,108 +129,107 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                                 ),
                               ),
                       ),
-                      widget.productModel!.productType == ProductType.GIFT_CARD
-                          ? Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: widget.productModel!.giftCardEndDate!
-                                            .compareTo(DateTime.now()) >
-                                        0
-                                    ? Container(
-                                        padding: EdgeInsets.all(4),
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(5)),
-                                          color: AppStyles.pinkColor,
-                                        ),
-                                        child: Text(
-                                          widget.productModel!.discountType ==
-                                                      "0" ||
-                                                  widget.productModel!
-                                                          .discountType ==
-                                                      0
-                                              ? '-${widget.productModel!.discount.toString()}% '
-                                              : '${(widget.productModel!.discount! * currencyController.conversionRate.value).toStringAsFixed(2)}${currencyController.appCurrency.value} ',
-                                          textAlign: TextAlign.center,
-                                          style: AppStyles.appFontBook.copyWith(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      )
-                                    : SizedBox.shrink(),
-                              ),
-                            )
-                          : Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: widget.productModel!.hasDeal != null
-                                    ? widget.productModel!.hasDeal!.discount! >
-                                            0
-                                        ? Container(
-                                            padding: EdgeInsets.all(4),
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(5)),
-                                              color: AppStyles.pinkColor,
-                                            ),
-                                            child: Text(
-                                              widget.productModel!.hasDeal!
-                                                          .discountType ==
-                                                      0
-                                                  ? '${widget.productModel!.hasDeal!.discount.toString()}% '
-                                                  : '${(widget.productModel!.hasDeal!.discount! * currencyController.conversionRate.value).toStringAsFixed(2)}${currencyController.appCurrency.value} ',
-                                              textAlign: TextAlign.center,
-                                              style: AppStyles.appFontBook
-                                                  .copyWith(
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          )
-                                        : Container()
-                                    : widget.productModel!.discountStartDate !=
-                                                null &&
-                                            currencyController.endDate
-                                                    .millisecondsSinceEpoch <
-                                                DateTime.now()
-                                                    .millisecondsSinceEpoch
-                                        ? Container()
-                                        : widget.productModel!.discount! > 0
-                                            ? Container(
-                                                padding: EdgeInsets.all(4),
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  5)),
-                                                  color: AppStyles.pinkColor,
-                                                ),
-                                                child: Text(
-                                                  widget.productModel!
-                                                              .discountType ==
-                                                          "0"
-                                                      ? '-${widget.productModel!.discount.toString()}% '
-                                                      : '${(widget.productModel!.discount! * currencyController.conversionRate.value).toStringAsFixed(2)}${currencyController.appCurrency.value} ',
-                                                  textAlign: TextAlign.center,
-                                                  style: AppStyles.appFontBook
-                                                      .copyWith(
-                                                    color: Colors.white,
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                              )
-                                            : Container(),
-                              ),
-                            ),
+                      // widget.productModel!.productType == ProductType.GIFT_CARD
+                      //     ? Positioned(
+                      //         top: 0,
+                      //         left: 0,
+                      //         child: Align(
+                      //           alignment: Alignment.topRight,
+                      //           child: widget.productModel!.giftCardEndDate!
+                      //                       .compareTo(DateTime.now()) >
+                      //                   0
+                      //               ? Container(
+                      //                   padding: EdgeInsets.all(4),
+                      //                   alignment: Alignment.center,
+                      //                   decoration: BoxDecoration(
+                      //                     borderRadius: BorderRadius.only(
+                      //                         topLeft: Radius.circular(5)),
+                      //                     color: AppStyles.pinkColor,
+                      //                   ),
+                      //                   child: Text(
+                      //                     widget.productModel!.discountType ==
+                      //                                 "0" ||
+                      //                             widget.productModel!
+                      //                                     .discountType ==
+                      //                                 0
+                      //                         ? '-${widget.productModel!.discount.toString()}% '
+                      //                         : '${(widget.productModel!.discount! * currencyController.conversionRate.value).toStringAsFixed(2)}${currencyController.appCurrency.value} ',
+                      //                     textAlign: TextAlign.center,
+                      //                     style: AppStyles.appFontBook.copyWith(
+                      //                       color: Colors.white,
+                      //                       fontSize: 12,
+                      //                     ),
+                      //                   ),
+                      //                 )
+                      //               : SizedBox.shrink(),
+                      //         ),
+                      //       )
+                      //     : Positioned(
+                      //         top: 0,
+                      //         left: 0,
+                      //         child: Align(
+                      //           alignment: Alignment.topRight,
+                      //           child: widget.productModel!.hasDeal != null
+                      //               ? widget.productModel!.hasDeal!.discount! > 0
+                      //                   ? Container(
+                      //                       padding: EdgeInsets.all(4),
+                      //                       alignment: Alignment.center,
+                      //                       decoration: BoxDecoration(
+                      //                         borderRadius: BorderRadius.only(
+                      //                             topLeft: Radius.circular(5)),
+                      //                         color: AppStyles.pinkColor,
+                      //                       ),
+                      //                       child: Text(
+                      //                         widget.productModel!.hasDeal!
+                      //                                     .discountType ==
+                      //                                 0
+                      //                             ? '${widget.productModel!.hasDeal!.discount.toString()}% '
+                      //                             : '${(widget.productModel!.hasDeal!.discount! * currencyController.conversionRate.value).toStringAsFixed(2)}${currencyController.appCurrency.value} ',
+                      //                         textAlign: TextAlign.center,
+                      //                         style: AppStyles.appFontBook
+                      //                             .copyWith(
+                      //                           color: Colors.white,
+                      //                           fontSize: 12,
+                      //                         ),
+                      //                       ),
+                      //                     )
+                      //                   : Container()
+                      //               : widget.productModel!.discountStartDate !=
+                      //                           null &&
+                      //                       currencyController.endDate
+                      //                               .millisecondsSinceEpoch <
+                      //                           DateTime.now()
+                      //                               .millisecondsSinceEpoch
+                      //                   ? Container()
+                      //                   : widget.productModel!.discount! > 0
+                      //                       ? Container(
+                      //                           padding: EdgeInsets.all(4),
+                      //                           alignment: Alignment.center,
+                      //                           decoration: BoxDecoration(
+                      //                             borderRadius:
+                      //                                 BorderRadius.only(
+                      //                                     topLeft:
+                      //                                         Radius.circular(
+                      //                                             5)),
+                      //                             color: AppStyles.goldenYellowColor,
+                      //                           ),
+                      //                           child: Text(
+                      //                             widget.productModel!
+                      //                                         .discountType ==
+                      //                                     "0"
+                      //                                 ? '-${widget.productModel!.discount.toString()}% '
+                      //                                 : '${(widget.productModel!.discount! * currencyController.conversionRate.value).toStringAsFixed(2)}${currencyController.appCurrency.value} ',
+                      //                             textAlign: TextAlign.center,
+                      //                             style: AppStyles.appFontBook
+                      //                                 .copyWith(
+                      //                               color: Colors.white,
+                      //                               fontSize: 12,
+                      //                             ),
+                      //                           ),
+                      //                         )
+                      //                       : Container(),
+                      //         ),
+                      //       ),
                     ],
                   ),
                 ),
@@ -345,7 +345,7 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                                           runAlignment: WrapAlignment.start,
                                           children: [
                                             Text(
-                                              '${currencyController.calculatePrice(widget.productModel!)}${currencyController.appCurrency.value}',
+                                              '${formatPrice(double.parse(currencyController.calculatePrice(widget.productModel!) ?? '0'), currencySymbol: currencyController.appCurrency.value)}',
                                               overflow: TextOverflow.ellipsis,
                                               style: AppStyles.appFontBook
                                                   .copyWith(
@@ -365,10 +365,10 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                                       runAlignment: WrapAlignment.start,
                                       children: [
                                         Text(
-                                          '${currencyController.calculatePrice(widget.productModel!)}${currencyController.appCurrency.value}',
+                                          '${formatPrice(double.parse(currencyController.calculatePrice(widget.productModel!) ?? '0'), currencySymbol: currencyController.appCurrency.value)}',
                                           style: AppStyles.appFontBook.copyWith(
                                             fontSize: 12,
-                                            color: AppStyles.pinkColor,
+                                            color: AppStyles.goldenYellowColor,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),

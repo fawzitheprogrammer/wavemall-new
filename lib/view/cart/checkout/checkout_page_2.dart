@@ -1065,17 +1065,17 @@ class _ShippingDropDownState extends State<ShippingDropDown> {
     if (widget.shippingValue!.costBasedOn == 'Price') {
       if (widget.price! > 0) {
         shippingCost2 = (widget.price! / 100) * widget.shippingValue!.cost! +
-            additionalShipping!;
+            additionalShipping;
       }
     } else if (widget.shippingValue!.costBasedOn == 'Weight') {
       if (widget.totalWeight! > 0) {
         shippingCost2 =
             (widget.totalWeight! / 100) * widget.shippingValue!.cost! +
-                additionalShipping!;
+                additionalShipping;
       }
     } else {
       if (widget.shippingValue!.cost! > 0) {
-        shippingCost2 = widget.shippingValue!.cost! + additionalShipping!;
+        shippingCost2 = widget.shippingValue!.cost! + additionalShipping;
       }
     }
 
@@ -1130,16 +1130,16 @@ class _ShippingDropDownState extends State<ShippingDropDown> {
           if (e.costBasedOn == 'Price') {
             if (widget.price! > 0) {
               shippingCost =
-                  ((widget.price! / 100) * e.cost!) + additionalShipping!;
+                  ((widget.price! / 100) * e.cost!) + additionalShipping;
             }
           } else if (e.costBasedOn == 'Weight') {
             if (widget.totalWeight! > 0) {
               shippingCost =
-                  ((widget.totalWeight! / 100) * e.cost!) + additionalShipping!;
+                  ((widget.totalWeight! / 100) * e.cost!) + additionalShipping;
             }
           } else {
             if (e.cost! > 0) {
-              shippingCost = e.cost! + additionalShipping!;
+              shippingCost = e.cost! + additionalShipping;
             }
           }
 
@@ -1205,18 +1205,18 @@ class _ShippingDropDownState extends State<ShippingDropDown> {
                   if (widget.price! > 0) {
                     shippingCost =
                         (widget.price! / 100) * widget.shippingValue!.cost! +
-                            additionalShipping!;
+                            additionalShipping;
                   }
                 } else if (widget.shippingValue!.costBasedOn == 'Weight') {
                   if (widget.totalWeight! > 0) {
                     shippingCost = (widget.totalWeight! / 100) *
                             widget.shippingValue!.cost! +
-                        additionalShipping!;
+                        additionalShipping;
                   }
                 } else {
                   if (widget.shippingValue!.cost! > 0) {
                     shippingCost =
-                        widget.shippingValue!.cost! + additionalShipping!;
+                        widget.shippingValue!.cost! + additionalShipping;
                   }
                 }
 
@@ -1269,18 +1269,18 @@ class _ShippingDropDownState extends State<ShippingDropDown> {
                 if (widget.price! > 0) {
                   shippingCost =
                       (widget.price! / 100) * widget.shippingValue!.cost! +
-                          additionalShipping!;
+                          additionalShipping;
                 }
               } else if (widget.shippingValue!.costBasedOn! == 'Weight') {
                 if (widget.totalWeight! > 0) {
                   shippingCost = (widget.totalWeight! / 100) *
                           widget.shippingValue!.cost! +
-                      additionalShipping!;
+                      additionalShipping;
                 }
               } else {
                 if (widget.shippingValue!.cost! > 0) {
                   shippingCost =
-                      widget.shippingValue!.cost! + additionalShipping!;
+                      widget.shippingValue!.cost! + additionalShipping;
                 }
               }
 
