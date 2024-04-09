@@ -62,12 +62,12 @@ class _CheckoutPageOneState extends State<CheckoutPageOne> {
       'shipping_method': {},
     });
 
-    if (currencyController.settingsModel.value.pickupLocations!.length != 0) {
-      if (currencyController.vendorType.value == "single") {
-        _checkoutController.selectedPickupValue.value =
-            currencyController.settingsModel.value.pickupLocations!.first;
-      }
-    }
+    // if (currencyController.settingsModel.value.pickupLocations!.length != 0) {
+    //   if (currencyController.vendorType.value == "single") {
+    //     _checkoutController.selectedPickupValue.value =
+    //         currencyController.settingsModel.value.pickupLocations!.first;
+    //   }
+    // }
 
     if (_checkoutController.verticalGroupValue.value == "Home Delivery") {
       _checkoutController.deliveryType.value = "home_delivery";

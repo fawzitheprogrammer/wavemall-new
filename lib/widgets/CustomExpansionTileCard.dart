@@ -1,6 +1,6 @@
-import 'package:wavemall/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wavemall/utils/styles.dart';
 
 /// A single-line [ListTile] with a trailing button that expands or collapses
 /// the tile to reveal or hide the [children].
@@ -49,8 +49,7 @@ class ExpansionTileCard extends StatefulWidget {
     this.isThreeLine = false,
     this.shadowColor = const Color(0xffaaaaaa),
     this.animateTrailing = false,
-  })  : assert(initiallyExpanded != null),
-        super(key: key);
+  }) : super(key: key);
 
   final bool isThreeLine;
 
@@ -229,7 +228,7 @@ class ExpansionTileCardState extends State<ExpansionTileCard>
         Tween<double>(begin: widget.initialElevation, end: widget.elevation)
             .chain(_elevationTween));
     _padding = _controller!.drive(_edgeInsetsTween!.chain(_paddingTween));
-    _isExpanded = PageStorage.of(context).readState(context) as bool;
+    _isExpanded = PageStorage.of(context).readState(context) ?? false;
     if (_isExpanded) _controller!.value = 1.0;
   }
 
@@ -276,7 +275,7 @@ class ExpansionTileCardState extends State<ExpansionTileCard>
   Widget _buildChildren(BuildContext context, Widget? child) {
     return Material(
       type: MaterialType.card,
-      color: _materialColor!.value,
+      color: _materialColor?.value ?? Colors.black,
       borderRadius: widget.borderRadius,
       elevation: 0,
       shadowColor: widget.shadowColor,
