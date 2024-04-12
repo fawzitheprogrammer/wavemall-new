@@ -6,7 +6,6 @@ import 'package:wavemall/model/Product/ProductType.dart';
 import 'package:wavemall/utils/format_price.dart';
 import 'package:wavemall/utils/styles.dart';
 import 'package:wavemall/view/cart/checkout/checkout_page_1.dart';
-import 'package:wavemall/view/cart/checkout/checkout_page_2.dart';
 import 'package:wavemall/view/products/product/product_details.dart';
 import 'package:wavemall/view/seller/StoreHome.dart';
 import 'package:wavemall/widgets/CustomSliverAppBarWidget.dart';

@@ -1,11 +1,8 @@
 import 'dart:convert';
 
-import 'package:wavemall/AppConfig/app_config.dart';
 import 'package:wavemall/network/config.dart';
 import 'package:wavemall/controller/login_controller.dart';
 import 'package:wavemall/utils/styles.dart';
-import 'package:wavemall/view/Home.dart';
-import 'package:wavemall/view/MainNavigation.dart';
 import 'package:wavemall/widgets/AppBarWidget.dart';
 import 'package:wavemall/widgets/CustomInputDecoration.dart';
 import 'package:wavemall/widgets/custom_loading_widget.dart';

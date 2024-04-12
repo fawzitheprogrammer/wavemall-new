@@ -1,6 +1,5 @@
 import 'package:wavemall/AppConfig/app_config.dart';
 import 'package:wavemall/utils/styles.dart';
-import 'package:wavemall/view/Home.dart';
 import 'package:wavemall/widgets/cart_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -3,7 +3,6 @@ import 'package:wavemall/controller/cart_controller.dart';
 import 'package:wavemall/controller/new_user_zone_controller.dart';
 import 'package:wavemall/utils/styles.dart';
 import 'package:wavemall/view/products/marketing/NewUserZone/NewUserZoneCouponMain.dart';
-import 'package:wavemall/widgets/CustomSliverAppBarWidget.dart';
 import 'package:wavemall/widgets/PinkButtonWidget.dart';
 import 'package:wavemall/widgets/custom_loading_widget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
