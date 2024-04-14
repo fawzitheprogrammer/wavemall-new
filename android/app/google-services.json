@@ -61,7 +61,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:709818571440:android:05bdbc2b7fd3612e9c3975",
         "android_client_info": {
-          "package_name": "com.swift.wavemall.app"
+          "package_name": "com.swift.wavemall.android"
         }
       },
       "oauth_client": [
