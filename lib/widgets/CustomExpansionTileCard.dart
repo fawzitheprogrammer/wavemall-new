@@ -275,7 +275,7 @@ class ExpansionTileCardState extends State<ExpansionTileCard>
   Widget _buildChildren(BuildContext context, Widget? child) {
     return Material(
       type: MaterialType.card,
-      color: _materialColor?.value ?? Colors.black,
+      color: _materialColor?.value ?? AppStyles.appBackgroundColor,
       borderRadius: widget.borderRadius,
       elevation: 0,
       shadowColor: widget.shadowColor,

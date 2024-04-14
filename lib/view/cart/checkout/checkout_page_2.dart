@@ -765,7 +765,7 @@ class _CheckoutPageTwoState extends State<CheckoutPageTwo> {
                                                                         children: [
                                                                           Text(
                                                                             currencyController.appCurrency.value +
-                                                                                (checkoutItem[productIndex].totalPrice * currencyController.conversionRate.value).toStringAsFixed(2),
+                                                                                (checkoutItem[productIndex].totalPrice * currencyController.conversionRate.value).toStringAsFixed(0),
                                                                             style:
                                                                                 AppStyles.appFontBold.copyWith(
                                                                               fontSize: 12,
@@ -863,7 +863,7 @@ class _CheckoutPageTwoState extends State<CheckoutPageTwo> {
                                                 Text(
                                                   '$qty ' +
                                                       'Item(s), Total: '.tr +
-                                                      '${double.parse((price * currencyController.conversionRate.value).toString()).toStringAsFixed(2)}${currencyController.appCurrency.value}',
+                                                      '${double.parse((price * currencyController.conversionRate.value).toString()).toStringAsFixed(0)}${currencyController.appCurrency.value}',
                                                   style: AppStyles.appFontBook
                                                       .copyWith(
                                                     fontSize: 14,
@@ -1159,7 +1159,7 @@ class _ShippingDropDownState extends State<ShippingDropDown> {
                       ),
                       Spacer(),
                       Text(
-                        "${double.parse("${shippingCost * currencyController.conversionRate.value}").toStringAsFixed(2)}${currencyController.appCurrency.value}",
+                        "${double.parse("${shippingCost * currencyController.conversionRate.value}").toStringAsFixed(0)}${currencyController.appCurrency.value}",
                         style: AppStyles.kFontBlack14w5.copyWith(
                           fontWeight: FontWeight.w600,
                         ),

@@ -98,7 +98,7 @@ class _CheckoutPageThreeState extends State<CheckoutPageThree> {
                     Expanded(
                       child: ListView.separated(
                           scrollDirection: Axis.vertical,
-                          itemCount: controller.gatewayList.length,
+                          itemCount: 1,
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,

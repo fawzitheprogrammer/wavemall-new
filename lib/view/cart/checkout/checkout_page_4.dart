@@ -885,7 +885,7 @@ class _CheckoutPageFourState extends State<CheckoutPageFour> {
                           return Text(
                             "Total".tr +
                                 ": " +
-                                "${(_checkoutController.grandTotal.value * _settingsController.conversionRate.value).toStringAsFixed(2)}${_settingsController.appCurrency.value}",
+                                "${(_checkoutController.grandTotal.value * _settingsController.conversionRate.value).toStringAsFixed(0)}${_settingsController.appCurrency.value}",
                             style: AppStyles.appFontBold.copyWith(
                               fontSize: 16,
                               color: Colors.white,
